@@ -9,4 +9,4 @@ This git repository contains 3 Eclipse projects, one application for server side
 5. Get result from teacher service which pass request through student service by calling **HTTP GET** [http://localhost:8082/v1/teacher/studentReport](http://localhost:8082/v1/teacher/studentReport)
 
 ## start
-Dashboard ``http://localhost:8761/index``
+Dashboard http://localhost:8761/index
