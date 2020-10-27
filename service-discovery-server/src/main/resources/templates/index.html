@@ -1,0 +1,93 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<script>
+    window.onload = function(e) {
+        axios.get('http://localhost:8761/eureka/apps')
+            .then(function(response) {
+                // handle success
+                console.log("success")
+                console.log(response.data.applications.application);
+                var result = response.data.applications.application;
+                for (let index = 0; index < result.length; index++) {
+                    const element = result[index];
+                    console.log(element.name, element.instance[0].status)
+                    document.getElementById("table-body").innerHTML += '<tr>' +
+                        '<th scope="row">' + (index + 1) + '</th>' +
+                        '<td>' + element.name + '</td>' +
+                        '<td class="text-white ' + (element.instance[0].status == 'UP' ? 'bg-success' : 'bg-danger') + '">' + element.instance[0].status + '</td>' +
+                        '<td>' +
+                        '<a class="btn btn-sm btn-success mr-1 disabled" href="#"><i class="far fa-edit"></i> start</a>' +
+                        '<a class="btn btn-sm btn-danger mr-1 disabled" href="#"><i class="fas fa-trash-alt"></i> stop</a>' +
+                        '<a class="btn btn-sm btn-warning disabled" href="#"><i class="fas fa-trash-alt"></i> restart</a>' +
+                        '</td>' +
+                        '<td><a class="btn btn-sm btn-info" href="' + element.instance[0].statusPageUrl + '"><i class="fas fa-info-circle"></i> Details</a> </td>' +
+                        '</tr>' +
+                        '<tr>'
+                }
+            })
+            .catch(function(error) {
+                // handle error
+                console.log(error);
+            })
+
+    }
+</script>
+
+<body>
+    <header>
+
+    </header>
+    <!---->
+    <main>
+        <div class="container my-5">
+            <div class="card-body text-center">
+                <h4 class="card-title">Service status</h4>
+                <p class="card-text"></p>
+            </div>
+            <div class="card">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Service name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Controller </th>
+                            <th scope="col">Info</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        body {
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+        
+        footer {
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+        
+        .bg__card__navbar {
+            background-color: #000000;
+        }
+        
+        .bg__card__footer {
+            background-color: #000000 !important;
+        }
+        
+        #add__new__list {
+            top: -38px;
+            right: 0px;
+        }
+    </style>
+</body>
