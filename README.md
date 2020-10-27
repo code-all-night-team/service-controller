@@ -10,3 +10,4 @@ This git repository contains 3 Eclipse projects, one application for server side
 
 ## Dashboard
 http://localhost:8761/index
+![Screenshot_2020-10-27 Screenshot](https://user-images.githubusercontent.com/43009070/97308613-a4424e00-1893-11eb-8b10-70149e9458e9.png)
